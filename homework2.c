@@ -128,6 +128,7 @@ void printMenu() {
             break;
         }
         reverseRow(row -1 , 0, cols - 1);
+        printMenu();
         break;
 
         case 5:
