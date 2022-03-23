@@ -15,10 +15,12 @@ void printCol1(int *p, int colSize) {
     }
 }
 
+/*     */
+
 void reverseRow1(int *p2) {
     for (int i = 4; i > 0; i--) {
         printf("%d\t", *p2);
-        p2-=1;
+        p2--;;
     }
 }
 
@@ -27,6 +29,8 @@ int arr[3][4] = {
     { 5,  6,  7,  8 },
     { 9, 10, 11, 12 }
 };
+int rows = sizeof(arr) / sizeof(arr[0]);
+int cols = sizeof(arr[0]) / sizeof(arr[0][0]);
 
 void printMat() {
     int col = 3;
@@ -67,13 +71,23 @@ void printRow() {
     }
 }
 
-void reverseRow() {
-    printf("which row to reverse?: \t");
+void reverseRow(int rownum , int low, int high)
+{
+    if (low < high)
+    {
+        int temp = arr[rownum][low];
+        arr[rownum][low] = arr[rownum][high];
+        arr[rownum][high] = temp;
 
-    int reversedR = scanf("%d", &reversedR);
-
-    printf("%d\n", reversedR);
-    reverseRow1(&arr[0][reversedR]);
+        reverseRow(rownum, low + 1, high - 1);
+    } else {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                printf("%d ", arr[i][j]);
+            }
+            printf("\n");
+        }
+    }
 }
 
 void printMenu() {
@@ -106,8 +120,15 @@ void printMenu() {
             break;
 
         case 4:
-            reverseRow();
+             printf("Please select row number: ");
+        int row;
+        scanf("%d", &row);
+        if (row >= rows || row < 0) {
+            printf("Invalid row\n");
             break;
+        }
+        reverseRow(row -1 , 0, cols - 1);
+        break;
 
         case 5:
             /* code */
